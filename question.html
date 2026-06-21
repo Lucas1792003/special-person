@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>One little question 💕</title>
+  <meta name="theme-color" content="#f7d9e6" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/core.css" />
+  <link rel="stylesheet" href="assets/css/question.css?v=2" />
+</head>
+
+<body>
+  <div class="sky" aria-hidden="true"></div>
+  <div class="hearts" aria-hidden="true"></div>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <main class="stage">
+    <section class="ask enter">
+      <img class="ask__mascot" src="assets/img/please.gif" alt="a little character pleading sweetly"
+        onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ask__mascot',textContent:'🥺'}))" />
+      <h1 class="ask__title">Kg Ma Lyy,<br />Will you keep choosing us, even from far away?</h1>
+      <p class="ask__sub" id="taunt">(there's no wrong answer&hellip; well, almost 😌)</p>
+
+      <div class="ask__btns">
+        <button class="btn btn--yes" id="yes">Yes &#10084;&#65039;</button>
+        <button class="btn btn--ghost" id="no">No</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- celebration -->
+  <div class="celebrate" id="celebrate" role="dialog" aria-modal="true" aria-labelledby="celebTitle">
+    <div class="celebrate__card">
+      <img class="celebrate__gif" src="assets/img/yay.gif" alt="a happy little character celebrating"
+        onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'celebrate__heart',textContent:'💗'}))" />
+      <h2 class="celebrate__title" id="celebTitle">Yay! You said yes! 🎉</h2>
+      <p class="celebrate__msg">You just made me the happiest. I can't wait — let's make a sweet memory together. 🌷</p>
+      <p class="celebrate__status" id="status" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="curtain" aria-hidden="true"><span class="curtain__heart">💗</span></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script src="assets/js/core.js"></script>
+  <script src="assets/js/question.js?v=4"></script>
+</body>
+
+</html>

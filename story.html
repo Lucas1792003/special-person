@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our little story 🌸</title>
+  <meta name="theme-color" content="#f7d9e6" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/core.css" />
+  <link rel="stylesheet" href="assets/css/story.css?v=5" />
+</head>
+
+<body>
+  <div class="sky" aria-hidden="true"></div>
+  <div class="hearts" aria-hidden="true"></div>
+
+  <main class="stage">
+    <section class="book-wrap enter">
+      <h1 class="book-title">our little story</h1>
+
+      <div class="book" id="book" aria-live="polite">
+        <!-- Page 0 — cover -->
+        <article class="page page--cover" data-page>
+          <span class="big-heart" aria-hidden="true">💗</span>
+          <h2 class="page__head">A story I've wanted<br />to tell you</h2>
+          <p class="page__text">turn the page&hellip; 🌸</p>
+        </article>
+
+        <!-- Page 1 -->
+        <article class="page" data-page>
+          <span class="page__kicker">chapter one</span>
+          <h2 class="page__head">Back in Great Light</h2>
+          <p class="page__text">
+            Thel lyy nk koko were not very close. I see you at school from time to times and that's it.
+            But one thing for sure. You were the kindest, brightest person in the room — funny, clever, and with
+            those clear, can't-look-away eyes.
+          </p>
+          <p class="page__text">
+            Then I switched schools, and life quietly pulled us in different
+            directions.
+          </p>
+          <div class="polaroid" aria-hidden="true">
+            <div class="polaroid__frame">
+              <img src="assets/img/img1.jpg" alt=""
+                   onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'🌼'}))" />
+            </div>
+            <span class="polaroid__cap">🌼</span>
+          </div>
+        </article>
+
+        <!-- Page 2 — chapter two, part one -->
+        <article class="page" data-page>
+          <span class="page__kicker">chapter two &middot; part one</span>
+          <h2 class="page__head">Then I found you again</h2>
+          <p class="page__text">
+            Like months ago, I start noticing u on Facebook but there are millions of reasons why we can't work out.
+            And those keep haunting my mind.(I actually should charge u for living rent free in my head all this time)
+          </p>
+          <p class="page__text">
+            Many months past by and I said fuck it, so i added a fri request in instragram to make it looks like
+            accident (it is all part of the script :3)
+          </p>
+          <div class="polaroid" aria-hidden="true">
+            <div class="polaroid__frame">
+              <img src="assets/img/img2.png" alt=""
+                   onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'📱'}))" />
+            </div>
+            <span class="polaroid__cap">🩷</span>
+          </div>
+        </article>
+
+        <!-- Page 2b — chapter two, part two -->
+        <article class="page" data-page>
+          <span class="page__kicker">chapter two &middot; part two</span>
+          <h2 class="page__head">And we just talked</h2>
+          <p class="page__text">
+            After that, next thing i know is we just <em>talked</em>. Day after day, about everything and nothing.
+            It was so easy, so fun.
+          </p>
+          <p class="page__text">
+            You told me you're working in Marketing and chasing a dream. I even joke about i create an app and you
+            market it to the world. So we could start our own company.
+          </p>
+          <div class="polaroid" aria-hidden="true">
+            <div class="polaroid__frame">
+              <img src="assets/img/img3.png" alt=""
+                   onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'✈️'}))" />
+            </div>
+            <span class="polaroid__cap">✈️</span>
+          </div>
+        </article>
+
+        <!-- Page 3 -->
+        <article class="page" data-page>
+          <span class="page__kicker">chapter three</span>
+          <h2 class="page__head">The thing about you</h2>
+          <p class="page__text">
+            It's hard to explain. You have this way of making an ordinary day
+            feel brighter — your smile, your warmth, the way you light up a whole
+            room without even trying.
+          </p>
+          <div class="polaroid" aria-hidden="true">
+            <div class="polaroid__frame">
+              <img src="assets/img/img4.png" alt=""
+                   onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'🌷'}))" />
+            </div>
+            <span class="polaroid__cap">🌷</span>
+          </div>
+        </article>
+
+        <!-- Page 4 -->
+        <article class="page page--final" data-page>
+          <span class="page__kicker">chapter four</span>
+          <h2 class="page__head">So here's the truth</h2>
+          <p class="page__text">
+            I think you're wonderful. Not in a "saved the best line for last"
+            kind of way — in a "I've meant it this whole time" kind of way.
+          </p>
+          <p class="page__text">
+            Which is why I made you this little something.
+          </p>
+          <div class="final-question">
+            <span class="final-question__flower" aria-hidden="true">&#127801;</span>
+            <h3 class="page__head">One last question</h3>
+            <p class="page__text">ready? it's a small one, i promise &#128149;</p>
+            <div class="final-cta">
+              <button class="btn btn--yes" data-go="question.html">Open the question &#10084;&#65039;</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <nav class="book-nav" aria-label="Story navigation">
+        <button class="nav-btn" id="prev" aria-label="Previous page" disabled>&#8592;</button>
+        <div class="dots" id="dots" aria-hidden="true"></div>
+        <button class="nav-btn" id="next" aria-label="Next page">&#8594;</button>
+      </nav>
+    </section>
+  </main>
+
+  <script src="assets/js/core.js"></script>
+  <script src="assets/js/story.js"></script>
+</body>
+
+</html>

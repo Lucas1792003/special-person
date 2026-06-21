@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A little something for you 💌</title>
+  <meta name="theme-color" content="#f7d9e6" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/core.css?v=3" />
+  <link rel="stylesheet" href="assets/css/envelope.css?v=3" />
+</head>
+<body>
+  <div class="sky" aria-hidden="true"></div>
+  <div class="hearts" aria-hidden="true"></div>
+
+  <main class="stage">
+    <section class="envelope-scene enter">
+      <p class="prompt">there's a little letter here&hellip;<br />for someone special 🌸</p>
+
+      <div class="envelope" id="envelope" role="button" tabindex="0"
+           aria-label="Open the letter">
+        <div class="env-back"></div>
+
+        <article class="letter" aria-hidden="true">
+          <h1 class="letter__hi">Dear Kg Ma Lyy,</h1>
+          <p class="letter__body">
+            Do you wanna hear an interesting little story? It's about a person
+            who's been on my mind more than she probably knows. Come with me?
+          </p>
+          <p class="letter__sign">with a nervous heart,<br />always — me 🌷</p>
+          <button class="btn btn--yes" data-go="story.html">Yes, tell me &#10084;&#65039;</button>
+        </article>
+
+        <div class="env-front" aria-hidden="true">
+          <div class="wall bottom"></div>
+          <div class="wall left"></div>
+          <div class="wall right"></div>
+        </div>
+
+        <div class="flap" aria-hidden="true"></div>
+        <div class="seal" aria-hidden="true">&#10084;</div>
+      </div>
+
+      <p class="tap-hint" aria-hidden="true">tap the envelope to open</p>
+    </section>
+  </main>
+
+  <script src="assets/js/core.js?v=3"></script>
+  <script src="assets/js/envelope.js?v=3"></script>
+</body>
+</html>

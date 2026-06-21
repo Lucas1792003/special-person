@@ -1,0 +1,231 @@
+/* ========================================================================
+   core.css — shared foundation for the "special person" love-note
+   tokens · dreamy background · floating hearts · buttons · transitions
+   ======================================================================== */
+
+:root {
+  /* palette (OKLCH) */
+  --bg:            oklch(0.985 0.014 350);
+  --grad-blush:    oklch(0.95 0.040 350);
+  --grad-lilac:    oklch(0.93 0.050 312);
+  --grad-peach:    oklch(0.96 0.045 60);
+  --surface:       oklch(0.995 0.006 350);
+  --surface-2:     oklch(0.98 0.012 340);
+  --ink:           oklch(0.30 0.050 350);
+  --muted:         oklch(0.50 0.045 350);
+  --primary:       oklch(0.62 0.17 22);
+  --primary-strong:oklch(0.55 0.18 22);
+  --accent:        oklch(0.74 0.11 312);
+  --gold:          oklch(0.86 0.10 92);
+
+  /* soft rose-tinted shadows (never gray) */
+  --shadow-sm: 0 2px 10px oklch(0.62 0.17 22 / 0.12);
+  --shadow-md: 0 10px 30px oklch(0.55 0.18 22 / 0.16);
+  --shadow-lg: 0 26px 70px oklch(0.50 0.18 22 / 0.22);
+  --glow:      0 0 40px oklch(0.74 0.11 312 / 0.35);
+
+  --radius: 22px;
+  --radius-lg: 34px;
+
+  /* easing */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --spring: cubic-bezier(0.22, 1, 0.36, 1); /* ease-out-quint: lively pop, no bounce */
+
+  /* z-scale */
+  --z-bg: 0;
+  --z-hearts: 1;
+  --z-content: 10;
+  --z-transition: 100;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  font-family: "Quicksand", system-ui, -apple-system, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- dreamy drifting background ---------------------------------------- */
+.sky {
+  position: fixed;
+  inset: -20%;
+  z-index: var(--z-bg);
+  background:
+    radial-gradient(60% 55% at 18% 22%, var(--grad-lilac) 0%, transparent 60%),
+    radial-gradient(55% 50% at 82% 18%, var(--grad-peach) 0%, transparent 58%),
+    radial-gradient(70% 60% at 50% 92%, var(--grad-blush) 0%, transparent 62%),
+    var(--bg);
+  background-size: 160% 160%, 150% 150%, 170% 170%, 100% 100%;
+  animation: sky-drift 26s ease-in-out infinite alternate;
+}
+
+/* soft floating bokeh blobs */
+.sky::before,
+.sky::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.5;
+}
+.sky::before {
+  width: 42vmax; height: 42vmax;
+  left: -8vmax; top: -6vmax;
+  background: radial-gradient(circle, var(--grad-lilac), transparent 70%);
+  animation: blob-a 30s var(--ease-soft) infinite alternate;
+}
+.sky::after {
+  width: 38vmax; height: 38vmax;
+  right: -10vmax; bottom: -8vmax;
+  background: radial-gradient(circle, var(--grad-peach), transparent 70%);
+  animation: blob-b 34s var(--ease-soft) infinite alternate;
+}
+
+@keyframes sky-drift {
+  0%   { background-position: 0% 0%, 100% 0%, 50% 100%, 0 0; }
+  100% { background-position: 100% 50%, 0% 60%, 40% 0%, 0 0; }
+}
+@keyframes blob-a {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(14vmax, 10vmax) scale(1.15); }
+}
+@keyframes blob-b {
+  0%   { transform: translate(0, 0) scale(1.1); }
+  100% { transform: translate(-12vmax, -8vmax) scale(0.95); }
+}
+
+/* ---- floating hearts layer -------------------------------------------- */
+.hearts {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-hearts);
+  pointer-events: none;
+  overflow: hidden;
+}
+.heart-float {
+  position: absolute;
+  bottom: -40px;
+  font-size: 22px;
+  line-height: 1;
+  opacity: 0;
+  filter: drop-shadow(0 4px 6px oklch(0.62 0.17 22 / 0.25));
+  animation: rise linear forwards;
+  will-change: transform, opacity;
+}
+@keyframes rise {
+  0%   { transform: translateY(0) translateX(0) rotate(0deg) scale(0.6); opacity: 0; }
+  12%  { opacity: var(--peak, 0.9); }
+  85%  { opacity: var(--peak, 0.9); }
+  100% { transform: translateY(-112svh) translateX(var(--drift, 30px)) rotate(var(--spin, 40deg)) scale(1); opacity: 0; }
+}
+
+/* ---- layout helpers ---------------------------------------------------- */
+.stage {
+  position: relative;
+  z-index: var(--z-content);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* generous gutters that never crowd small screens; grows + scrolls if content is taller than the viewport */
+  padding: clamp(16px, 4vw, 56px);
+}
+
+/* ---- buttons ---------------------------------------------------------- */
+.btn {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  font-size: clamp(1rem, 0.9rem + 0.6vw, 1.18rem);
+  letter-spacing: 0.01em;
+  color: white;
+  background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+  border: none;
+  border-radius: 999px;
+  padding: 0.85em 2em;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.5s var(--ease-out),
+              box-shadow 0.5s var(--ease-out),
+              filter 0.3s var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:hover { transform: translateY(-3px) scale(1.03); box-shadow: var(--shadow-lg); }
+.btn:active { transform: translateY(-1px) scale(0.99); }
+.btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+.btn--ghost {
+  color: var(--primary-strong);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+/* heart shimmer on the primary button */
+.btn--yes { position: relative; overflow: hidden; }
+.btn--yes::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, oklch(1 0 0 / 0.45) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.8s var(--ease-out);
+}
+.btn--yes:hover::after { transform: translateX(120%); }
+
+/* ---- page-transition wipe -------------------------------------------- */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-transition);
+  background: radial-gradient(circle at 50% 60%, var(--grad-lilac), var(--primary) 130%);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.55s var(--ease-out), visibility 0s linear 0.55s;
+}
+.curtain__heart {
+  font-size: 64px;
+  transform: scale(0.4);
+  opacity: 0;
+  transition: transform 0.55s var(--spring), opacity 0.4s var(--ease-out);
+  filter: drop-shadow(0 10px 20px oklch(0.4 0.15 20 / 0.4));
+}
+body.is-leaving .curtain { opacity: 1; visibility: visible; transition-delay: 0s; }
+body.is-leaving .curtain__heart { transform: scale(1); opacity: 1; }
+
+/* page-enter: content gently fades up on load */
+.enter {
+  animation: enter-up 0.9s var(--ease-out) both;
+}
+@keyframes enter-up {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- reduced motion --------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.12s !important;
+    scroll-behavior: auto !important;
+  }
+  .sky { animation: none; }
+  .hearts { display: none; }
+  .enter { animation: none; }
+  .curtain { transition: opacity 0.12s linear; }
+}

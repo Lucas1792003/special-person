@@ -1,0 +1,236 @@
+/* story.css — Act 2: the storybook that turns page by page */
+
+.book-wrap {
+  display: grid;
+  gap: clamp(10px, 2vh, 22px);
+  width: min(620px, 100%);
+  justify-items: center;
+}
+
+.book-title {
+  font-family: "Caveat", cursive;
+  font-size: clamp(1.6rem, 1.2rem + 2vw, 2.3rem);
+  color: var(--primary-strong);
+  margin: 0;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* ---- the book -------------------------------------------------------- */
+.book {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  max-height: 78svh;
+  perspective: 1800px;
+}
+
+.page {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  border-radius: 10px 22px 22px 10px;
+  background: linear-gradient(160deg, var(--surface), oklch(0.985 0.012 345));
+  box-shadow: var(--shadow-lg);
+  padding: clamp(18px, 4vw, 32px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1.4vh, 14px);
+  overflow: hidden auto;          /* long chapters scroll instead of clipping */
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+  transition: transform 0.95s var(--ease-out), filter 0.6s var(--ease-out);
+  /* soft spine shading on the left edge */
+}
+.page::-webkit-scrollbar { width: 6px; }
+.page::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 999px; }
+.page::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 26px;
+  background: linear-gradient(90deg, oklch(0.5 0.08 350 / 0.18), transparent);
+  pointer-events: none;
+}
+
+/* page states (set by JS) */
+.page.is-upcoming { transform: rotateY(0deg); }
+.page.is-active   { transform: rotateY(0deg); filter: none; }
+.page.is-turned   { transform: rotateY(-168deg); }
+
+/* a faint thickness peek for pages still to come */
+.page.is-deep { filter: brightness(0.985); }
+
+/* ---- page content ---------------------------------------------------- */
+.page__kicker {
+  font-family: "Caveat", cursive;
+  font-size: 1.5rem;
+  color: var(--accent);
+  line-height: 1;
+}
+.page__head {
+  font-family: "Caveat", cursive;
+  font-size: clamp(1.7rem, 1.3rem + 2.2vw, 2.5rem);
+  color: var(--primary-strong);
+  margin: 0;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+.page__text {
+  font-size: clamp(0.96rem, 0.9rem + 0.45vw, 1.06rem);
+  line-height: 1.5;
+  color: var(--ink);
+  margin: 0;
+  text-wrap: pretty;
+}
+.page__text + .page__text { margin-top: 0; }
+
+.page--cover {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background:
+    radial-gradient(120% 90% at 50% 0%, oklch(0.96 0.05 340), transparent 60%),
+    linear-gradient(160deg, var(--surface), oklch(0.97 0.02 345));
+}
+.page--cover .big-heart {
+  font-size: clamp(54px, 16vw, 88px);
+  filter: drop-shadow(0 10px 22px oklch(0.6 0.17 22 / 0.35));
+  animation: heartbeat 2.6s var(--ease-soft) infinite;
+}
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14%      { transform: scale(1.12); }
+  28%      { transform: scale(1); }
+  42%      { transform: scale(1.08); }
+  56%      { transform: scale(1); }
+}
+
+/* photo placeholder — a little polaroid */
+.polaroid {
+  align-self: center;
+  width: clamp(170px, 24svh, 245px);
+  max-width: 56%;
+  background: white;
+  padding: 8px 8px 28px;
+  border-radius: 6px;
+  box-shadow: var(--shadow-md);
+  transform: rotate(-2.5deg);
+  position: relative;
+  margin-top: clamp(4px, 0.8vh, 10px);
+}
+.polaroid:nth-of-type(even) { transform: rotate(2deg); }
+.polaroid__frame {
+  aspect-ratio: 3 / 4;
+  border-radius: 3px;
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(45deg, oklch(0.95 0.03 340) 0 12px, oklch(0.93 0.04 320) 12px 24px);
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 2rem;
+}
+.polaroid__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain !important;
+  object-position: center;
+  display: block;
+}
+.polaroid__cap {
+  position: absolute;
+  left: 0; right: 0; bottom: 10px;
+  text-align: center;
+  font-family: "Caveat", cursive;
+  font-size: 1.15rem;
+  color: var(--muted);
+}
+/* tape */
+.polaroid::before {
+  content: "";
+  position: absolute;
+  top: -10px; left: 50%;
+  width: 64px; height: 22px;
+  transform: translateX(-50%) rotate(-4deg);
+  background: oklch(0.86 0.06 312 / 0.55);
+  box-shadow: 0 2px 5px oklch(0.5 0.1 22 / 0.15);
+}
+
+/* ---- controls -------------------------------------------------------- */
+.book-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 4vw, 26px);
+}
+.nav-btn {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: none;
+  display: grid;
+  place-items: center;
+  font-size: 1.3rem;
+  color: var(--primary-strong);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), opacity 0.3s;
+}
+.nav-btn:hover:not(:disabled) { transform: translateY(-2px) scale(1.06); box-shadow: var(--shadow-md); }
+.nav-btn:active:not(:disabled) { transform: scale(0.95); }
+.nav-btn:disabled { opacity: 0.35; cursor: default; }
+.nav-btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+.dots { display: flex; gap: 9px; }
+.dot {
+  font-size: 0.9rem;
+  opacity: 0.35;
+  transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+}
+.dot.on { opacity: 1; transform: scale(1.25); }
+
+.final-question {
+  margin-top: clamp(18px, 4vh, 38px);
+  padding-top: 0;
+  display: grid;
+  justify-items: center;
+  gap: clamp(8px, 1.5vh, 14px);
+  text-align: center;
+}
+.final-question__flower {
+  font-size: clamp(42px, 8vw, 68px);
+  line-height: 1;
+  filter: drop-shadow(0 10px 22px oklch(0.6 0.17 22 / 0.28));
+  animation: heartbeat 2.6s var(--ease-soft) infinite;
+}
+.final-cta {
+  width: min(320px, 100%);
+  margin-top: clamp(8px, 2vh, 20px);
+}
+.final-cta .btn { width: 100%; }
+
+/* small phones: tighter type + smaller photo so chapters fit the card */
+@media (max-width: 430px) {
+  .book { aspect-ratio: 3 / 4; }
+  .polaroid { width: clamp(135px, 20svh, 175px); max-width: 54%; padding: 7px 7px 24px; margin-top: 8px; }
+  .polaroid__cap { font-size: 1rem; bottom: 7px; }
+  .page { gap: 8px; }
+}
+
+/* short / landscape screens: shrink the book, let the page scroll */
+@media (max-height: 560px) {
+  .book { aspect-ratio: auto; height: 64svh; max-height: none; }
+  .book-title { font-size: clamp(1.3rem, 1rem + 2vw, 1.8rem); }
+  .polaroid { width: clamp(120px, 19svh, 155px); }
+  .nav-btn { width: 46px; height: 46px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page { transition: opacity 0.15s linear; }
+  .page.is-turned { transform: rotateY(0deg); opacity: 0; pointer-events: none; }
+  .page--cover .big-heart { animation: none; }
+  .final-question__flower { animation: none; }
+}
